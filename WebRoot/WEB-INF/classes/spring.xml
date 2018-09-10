@@ -1,0 +1,80 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+
+	
+	<!-- 配置handler  在配置映射器的时候顺势将handler一起配置 -->
+	<bean id="queryItems" name="/queryItems.action"   class="cn.itcast.controller.ItemsController_1"/>
+	<!-- 另外一个handler -->
+	<bean id="queryItems2" class="cn.itcast.controller.ItemsController_2"/>
+	
+	<!-- 所有的映射器都实现handlerMapping接口，接口的存在就是规范的接口，实现的具体方法有很多，但都只有一个接口 -->
+	<!-- 配置处理器映射器 
+	通过bean name中的url去在映射器中查找找到对应的适配器-->
+	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+	
+	<!-- 简单映射器配置 -->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	 	<property name="mappings">
+	 		<props>
+	 			<prop key="/queryItems1.action">queryItems</prop>
+	 			<prop key="/queryItems2.action">queryItems</prop>
+	 			<prop key="/queryItems3.action">queryItems2</prop>
+	 		</props>
+	 	</property>
+	</bean>
+	
+	<!-- 注解映射器 -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+	<!-- 注解适配器 -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
+	
+	<!-- mvc:annotation-driven(mvc的注解驱动)使用该注解驱动可以代替上面两个注解映射器和适配器 
+	mvc:annotation-driven该注解驱动默认加载了很多参数绑定方法，比如json转换解析器-->
+	<mvc:annotation-driven></mvc:annotation-driven>
+	
+	
+	<!-- 处理器适配器 -->
+	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+	
+	<!-- 另外一种非注解适配器 -->
+	<bean class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter"/>
+	
+	<!-- 视图解析器 
+	解析jsp页面，默认加载jstl标签-->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
+	
+	
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
