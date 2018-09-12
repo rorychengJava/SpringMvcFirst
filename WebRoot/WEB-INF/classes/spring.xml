@@ -15,7 +15,7 @@
 
 	
 	<!-- 配置handler  在配置映射器的时候顺势将handler一起配置 -->
-	<bean id="queryItems" name="/queryItems.action"   class="cn.itcast.controller.ItemsController_1"/>
+	<bean id="queryItems" name="/queryItems_test.action"   class="cn.itcast.controller.ItemsController_1"/>
 	<!-- 另外一个handler -->
 	<bean id="queryItems2" class="cn.itcast.controller.ItemsController_2"/>
 	
@@ -43,7 +43,8 @@
 	<!-- mvc:annotation-driven(mvc的注解驱动)使用该注解驱动可以代替上面两个注解映射器和适配器 
 	mvc:annotation-driven该注解驱动默认加载了很多参数绑定方法，比如json转换解析器-->
 	<mvc:annotation-driven></mvc:annotation-driven>
-	
+	<!-- 配置注解扫描 -->
+	<context:component-scan base-package="cn.itcast.controller"></context:component-scan>
 	
 	<!-- 处理器适配器 -->
 	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
